@@ -1,7 +1,7 @@
 import React, { useState,useEffect} from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import NetInfo from "@react-native-community/netinfo";
-import functions from './funcions/submit'; 
+// import functions from './funcions/submit'; 
 
 const Section: React.FC<{ title: string; isOpen: boolean; toggle: () => void }> = ({ title, isOpen, toggle, children }) => (
   <View style={styles.section}>
@@ -27,31 +27,33 @@ const App: React.FC = () => {
   const [sectionClient, setSectionClient] = useState(false);
 
   const [isConnected, setIsConnected] = useState(true);
-  useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener(state => {
-        setIsConnected(state.isConnected);
-        if (state.isConnected) {
-            functions.sendDataToAPI();
-        }
-    });
-    return () => {
-        unsubscribe();
-    };
-}, []);
+//   useEffect(() => {
+//     const unsubscribe = NetInfo.addEventListener(state => {
+//         setIsConnected(state.isConnected);
+//         if (state.isConnected) {
+//             functions.sendDataToAPI();
+//         }
+//     });
+//     return () => {
+//         unsubscribe();
+//     };
+// }, []);
 
   const handleSubmit = () => {
    
     if (isConnected) {
       // Directly send data to the API if online
-      const formData = {
-          tecName: tecName,
-          supName: supName
-      };
-      functions.sendDataToAPI(formData);
+      // const formData = {
+      //     tecName: tecName,
+      //     supName: supName
+      // };
+      // functions.sendDataToAPI(formData);
+            Alert.alert("Online", "Si tiene conexion a internet");
+
   } else {
       // Save the form data to SQLite if offline
   
-      functions.saveData(tecName, supName);
+      // functions.saveData(tecName, supName);
       Alert.alert("Offline", "No tiene conexion a internet estable! Se guardara los datos localmente y se subira cuando tenga conexion estable.");
   }
   };
